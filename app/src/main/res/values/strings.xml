@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BookApp</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="favourite">favourite</string>
+    <string name="profile">profile</string>
+    <string name="About">About</string>
+    <string name="Profile">Profile</string>
 </resources>
