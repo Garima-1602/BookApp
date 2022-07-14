@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import com.google.android.material.navigation.NavigationView as NavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var coordinateLayout:CoordinatorLayout
     lateinit var toolbar:Toolbar
     lateinit var frameLayout:FrameLayout
-    lateinit var navigation:NavigationView
+    lateinit var navigationView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         coordinateLayout=findViewById(R.id.coordinateLayout)
         toolbar=findViewById(R.id.toolbar)
         frameLayout=findViewById(R.id.frameLayout)
-        navigation=findViewById(R.id.navigation)
+        navigationView=findViewById(R.id.navigationView)
         setUpToolBar()
 
 //make a toggle  and place it in action bar which is action bar toggle
@@ -43,6 +44,33 @@ class MainActivity : AppCompatActivity() {
         //to change hamsburger icon to back icon and vice versa
         //sync the toggle
         actionBarDrawerToggle.syncState()
+        //to add clicklistener to items of navigation bar
+
+
+
+        navigationView.setNavigationItemSelectedListener{
+            when(it.itemId)
+            {
+                R.id.dashboard->{
+                    Toast.makeText(this@MainActivity,"clicked on dashboard",Toast.LENGTH_SHORT).show()
+                }
+                R.id.favourite->{
+                    Toast.makeText(this@MainActivity,"clicked on favorites",Toast.LENGTH_SHORT).show()
+                }
+                R.id.profile->
+                {
+                    Toast.makeText(this@MainActivity,"clicked on profile",Toast.LENGTH_SHORT).show()
+                }
+                R.id.About->
+                {
+                    Toast.makeText(this@MainActivity,"clicked on about",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+                return@setNavigationItemSelectedListener true
+    }
+
     }
     fun setUpToolBar()
     {
