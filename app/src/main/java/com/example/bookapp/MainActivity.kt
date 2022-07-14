@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId)
             {
                 R.id.dashboard->{
-                    Toast.makeText(this@MainActivity,"clicked on dashboard",Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction()
+                            //here dashboardfragment replace the blank frame
+                        .replace(R.id.frame,DashboardFragment())
+                        .commit() //to make change and start
+                         drawerLayout.closeDrawers()
                 }
                 R.id.favourite->{
                     Toast.makeText(this@MainActivity,"clicked on favorites",Toast.LENGTH_SHORT).show()
