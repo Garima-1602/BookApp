@@ -6,4 +6,7 @@
     <string name="About">About</string>
     <string name="Profile">Profile</string>
     <string name="navigation_drawer">Navigation Drawer</string>
+    //to handle the hamburger movement
+    <string name="open_drawer">open Drawer</string>
+    <string name="close_drawer">close Drawer</string>
 </resources>
