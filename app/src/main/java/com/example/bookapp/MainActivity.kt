@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar:Toolbar
     lateinit var frameLayout:FrameLayout
     lateinit var navigationView: NavigationView
+      var previousMenuItem :MenuItem? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,7 +51,20 @@ class MainActivity : AppCompatActivity() {
 
 
         navigationView.setNavigationItemSelectedListener{
+            //code for checking and unchecking of menu item
+            if(previousMenuItem!=null)
+            {
+                previousMenuItem?.isChecked=false
+            }
+            else
+            {
+                it.isCheckable=true
+                it.isChecked=true
+                previousMenuItem=it
+
+            }
             when(it.itemId)
+
             {
                 R.id.dashboard->{
                     openDashboard()
