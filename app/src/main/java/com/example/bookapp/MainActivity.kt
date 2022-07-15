@@ -59,15 +59,27 @@ class MainActivity : AppCompatActivity() {
                          drawerLayout.closeDrawers()
                 }
                 R.id.favourite->{
-                    Toast.makeText(this@MainActivity,"clicked on favorites",Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction()
+                        //here dashboardfragment replace the blank frame
+                        .replace(R.id.frameLayout,FavouriteFragment())
+                        .commit() //to make change and start
+                    drawerLayout.closeDrawers()
                 }
                 R.id.profile->
                 {
-                    Toast.makeText(this@MainActivity,"clicked on profile",Toast.LENGTH_SHORT).show()
+                   supportFragmentManager.beginTransaction()
+                       //here dashboardfragment replace the blank frame
+                       .replace(R.id.frameLayout,ProfileFragment())
+                       .commit() //to make change and start
+                    drawerLayout.closeDrawers()
                 }
                 R.id.About->
                 {
-                    Toast.makeText(this@MainActivity,"clicked on about",Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction()
+                        //here dashboardfragment replace the blank frame
+                        .replace(R.id.frameLayout,AboutFragment())
+                        .commit() //to make change and start
+                    drawerLayout.closeDrawers()
                 }
 
             }
