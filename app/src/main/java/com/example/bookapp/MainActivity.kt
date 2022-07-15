@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                             //here dashboardfragment replace the blank frame
                         .replace(R.id.frameLayout,DashboardFragment())
+                        .addToBackStack("Dashboard")
                         .commit() //to make change and start
                          drawerLayout.closeDrawers()
                 }
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
                         .replace(R.id.frameLayout,FavouriteFragment())
+                        .addToBackStack("Favourite")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
                 }
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                    supportFragmentManager.beginTransaction()
                        //here dashboardfragment replace the blank frame
                        .replace(R.id.frameLayout,ProfileFragment())
+                       .addToBackStack("Profile")
                        .commit() //to make change and start
                     drawerLayout.closeDrawers()
                 }
@@ -78,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
                         .replace(R.id.frameLayout,AboutFragment())
+                        .addToBackStack("About")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
                 }
