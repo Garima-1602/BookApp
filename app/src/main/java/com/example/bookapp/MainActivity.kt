@@ -137,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frameLayout,fragment)
         transaction.commit()
         supportActionBar?.title="Dashboard"
+        navigationView.setCheckedItem(R.id.dashboard)
 
     }
 
