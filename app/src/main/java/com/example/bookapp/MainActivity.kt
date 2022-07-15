@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         frameLayout=findViewById(R.id.frameLayout)
         navigationView=findViewById(R.id.navigationView)
         setUpToolBar()
+        openDashboard()
 
 //make a toggle  and place it in action bar which is action bar toggle
         val actionBarDrawerToggle= ActionBarDrawerToggle(
@@ -116,6 +117,16 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
+
+    }
+    //to make dashboard as default
+    fun openDashboard()
+    {
+        val fragment=DashboardFragment()
+        val transaction=supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout,fragment)
+        transaction.commit()
+        supportActionBar?.title="Dashboard"
 
     }
 
