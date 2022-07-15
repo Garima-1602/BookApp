@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.dashboard->{
                     supportFragmentManager.beginTransaction()
                             //here dashboardfragment replace the blank frame
-                        .replace(R.id.frame,DashboardFragment())
+                        .replace(R.id.frameLayout,DashboardFragment())
                         .commit() //to make change and start
                          drawerLayout.closeDrawers()
                 }
