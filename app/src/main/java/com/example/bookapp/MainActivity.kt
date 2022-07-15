@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack("Dashboard")
                         .commit() //to make change and start
                          drawerLayout.closeDrawers()
+                    supportActionBar?.title="Dashboard"
                 }
                 R.id.favourite->{
                     supportFragmentManager.beginTransaction()
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack("Favourite")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
+                    supportActionBar?.title="Favourite"
                 }
                 R.id.profile->
                 {
@@ -75,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                        .addToBackStack("Profile")
                        .commit() //to make change and start
                     drawerLayout.closeDrawers()
+                    supportActionBar?.title="Profile"
                 }
                 R.id.About->
                 {
@@ -84,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack("About")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
+                    supportActionBar?.title="About"
                 }
 
             }
