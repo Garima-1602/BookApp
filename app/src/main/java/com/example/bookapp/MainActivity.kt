@@ -53,19 +53,15 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId)
             {
                 R.id.dashboard->{
-                    supportFragmentManager.beginTransaction()
-                            //here dashboardfragment replace the blank frame
-                        .replace(R.id.frameLayout,DashboardFragment())
-                        .addToBackStack("Dashboard")
-                        .commit() //to make change and start
+                    openDashboard()
                          drawerLayout.closeDrawers()
-                    supportActionBar?.title="Dashboard"
+
                 }
                 R.id.favourite->{
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
                         .replace(R.id.frameLayout,FavouriteFragment())
-                        .addToBackStack("Favourite")
+                        //.addToBackStack("Favourite")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
                     supportActionBar?.title="Favourite"
@@ -75,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                    supportFragmentManager.beginTransaction()
                        //here dashboardfragment replace the blank frame
                        .replace(R.id.frameLayout,ProfileFragment())
-                       .addToBackStack("Profile")
+                       //.addToBackStack("Profile")
                        .commit() //to make change and start
                     drawerLayout.closeDrawers()
                     supportActionBar?.title="Profile"
@@ -85,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
                         .replace(R.id.frameLayout,AboutFragment())
-                        .addToBackStack("About")
+                        //.addToBackStack("About")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
                     supportActionBar?.title="About"
@@ -127,6 +123,15 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frameLayout,fragment)
         transaction.commit()
         supportActionBar?.title="Dashboard"
+
+    }
+
+    override fun onBackPressed() {
+        val frag=supportFragmentManager.findFragmentById(R.id.frameLayout)
+        when(frag) {
+            !is DashboardFragment->openDashboard()
+            else->super.onBackPressed()
+        }
 
     }
 
