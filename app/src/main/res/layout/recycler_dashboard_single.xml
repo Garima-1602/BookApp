@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/txtRecycleItem"
+        android:id="@+id/Recyclerrowitem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="List item"
-        />
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="List Item"/>
 
 </RelativeLayout>
