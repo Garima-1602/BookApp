@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.favourite ->{
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
-                        .replace(R.id.frameLayout, FavouriteFragment())
+                        .replace(R.id.frameLayout, fragment.FavouriteFragment())
                         //.addToBackStack("Favourite")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 {
                    supportFragmentManager.beginTransaction()
                        //here dashboardfragment replace the blank frame
-                       .replace(R.id.frameLayout, ProfileFragment())
+                       .replace(R.id.frameLayout, fragment.ProfileFragment())
                        //.addToBackStack("Profile")
                        .commit() //to make change and start
                     drawerLayout.closeDrawers()
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
-                        .replace(R.id.frameLayout, AboutFragment())
+                        .replace(R.id.frameLayout, fragment.AboutFragment())
                         //.addToBackStack("About")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     //to make dashboard as default
     fun openDashboard()
     {
-        val fragment= DashboardFragment()
+        val fragment= fragment.DashboardFragment()
         val transaction=supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout,fragment)
         transaction.commit()
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val frag=supportFragmentManager.findFragmentById(R.id.frameLayout)
         when(frag) {
-            !is DashboardFragment ->openDashboard()
+            !is fragment.DashboardFragment ->openDashboard()
             else->super.onBackPressed()
         }
 

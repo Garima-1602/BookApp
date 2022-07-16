@@ -1,5 +1,7 @@
 package fragment
 
+import adapter.DashboardRecyclerAdapter
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +36,19 @@ class DashboardFragment : Fragment() {
     }
        lateinit var Recyclerview:RecyclerView
        lateinit var layoutManager: RecyclerView.LayoutManager
+       val bookList= arrayListOf<String>(
+           "P.S. I love You",
+           "The Great Gatsby",
+           "Anna Karenina",
+           "Madame Bovary",
+           "War and Peace",
+           "Lolita",
+           "Middlemarch",
+           "The adventure of Huckleberry Finn",
+           "Moby-Dick",
+           "The lord of the Rings"
+       )
+    lateinit var recyclerAdapter:DashboardRecyclerAdapter
     override fun onCreateView(//here we use layoutinflater instead of setcontentview
         //layoutinflater converts the complete layout into view and then we return in the method
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +58,10 @@ class DashboardFragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_dashboard, container, false)
         Recyclerview=view.findViewById(R.id.Recyclerview)
         layoutManager=LinearLayoutManager(activity)
+        recyclerAdapter=DashboardRecyclerAdapter(activity as Context,bookList)
+        Recyclerview.adapter=recyclerAdapter
+        Recyclerview.layoutManager=layoutManager
+
         return view //this voew is parent view of fragment
     }
 
