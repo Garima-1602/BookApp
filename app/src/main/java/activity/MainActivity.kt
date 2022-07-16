@@ -1,15 +1,15 @@
-package com.example.bookapp
+package activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.bookapp.*
 import com.google.android.material.navigation.NavigationView as NavigationView
 
 
@@ -66,35 +66,35 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId)
 
             {
-                R.id.dashboard->{
+                R.id.dashboard ->{
                     openDashboard()
                          drawerLayout.closeDrawers()
 
                 }
-                R.id.favourite->{
+                R.id.favourite ->{
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
-                        .replace(R.id.frameLayout,FavouriteFragment())
+                        .replace(R.id.frameLayout, FavouriteFragment())
                         //.addToBackStack("Favourite")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
                     supportActionBar?.title="Favourite"
                 }
-                R.id.profile->
+                R.id.profile ->
                 {
                    supportFragmentManager.beginTransaction()
                        //here dashboardfragment replace the blank frame
-                       .replace(R.id.frameLayout,ProfileFragment())
+                       .replace(R.id.frameLayout, ProfileFragment())
                        //.addToBackStack("Profile")
                        .commit() //to make change and start
                     drawerLayout.closeDrawers()
                     supportActionBar?.title="Profile"
                 }
-                R.id.About->
+                R.id.About ->
                 {
                     supportFragmentManager.beginTransaction()
                         //here dashboardfragment replace the blank frame
-                        .replace(R.id.frameLayout,AboutFragment())
+                        .replace(R.id.frameLayout, AboutFragment())
                         //.addToBackStack("About")
                         .commit() //to make change and start
                     drawerLayout.closeDrawers()
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     //to make dashboard as default
     fun openDashboard()
     {
-        val fragment=DashboardFragment()
+        val fragment= DashboardFragment()
         val transaction=supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout,fragment)
         transaction.commit()
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val frag=supportFragmentManager.findFragmentById(R.id.frameLayout)
         when(frag) {
-            !is DashboardFragment->openDashboard()
+            !is DashboardFragment ->openDashboard()
             else->super.onBackPressed()
         }
 
