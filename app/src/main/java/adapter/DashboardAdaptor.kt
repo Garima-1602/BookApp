@@ -14,7 +14,7 @@ import com.example.bookapp.R
 class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<String>) :RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>(){
     class DashboardViewHolder (view: View):RecyclerView.ViewHolder(view) {
 
-   val textView:TextView=view.findViewById(R.id.Recyclerrowitem)
+   val textView:TextView=view.findViewById(R.id.txtBookRating)
 
 
 
