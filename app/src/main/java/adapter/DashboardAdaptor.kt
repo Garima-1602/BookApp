@@ -6,15 +6,24 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
+import model.Book
+
 //construction two primary constructors
 //adaptor class has viewholder inside it and viewholder is also a class
-class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<String>) :RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>(){
+class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>) :RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>(){
     class DashboardViewHolder (view: View):RecyclerView.ViewHolder(view) {
 
-   val textView:TextView=view.findViewById(R.id.txtBookname)
+        val txtBookName:TextView=view.findViewById(R.id.txtBookname)
+        val txtBookAuthor:TextView=view.findViewById(R.id.txtBookAuthor)
+        val txtBookRating:TextView=view.findViewById(R.id.txtBookRating)
+        val txtBookPrice:TextView=view.findViewById(R.id.txtBookPrice)
+        val imgBook: ImageView =view.findViewById(R.id.imgBook)
+
+
 
 
 
@@ -33,8 +42,12 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Strin
         holder: DashboardRecyclerAdapter.DashboardViewHolder,
         position: Int
     ) {
-    val text= itemList[position]//store item present at zero of ArrayList
-    holder.textView.text=text
+        val book=itemList[position]
+    holder.txtBookName.text=book.bookName
+    holder.txtBookAuthor.text=book.bookAuthor
+    holder.txtBookPrice.text=book.bookPrice
+    holder.txtBookRating.text=book.bookRating
+    holder.imgBook.setImageResource(book.bookImage)
 
     }
 
