@@ -19,3 +19,9 @@ class ConnectionManager {
         }
     }
 }
+//FOR INTERNET CONNCETION
+//GIVE PERMISIIONS IN MANIFEST FILE
+//create class connection manager
+//create function which return boolean for checking connectivty and state
+//tocall that func craete button in dashboard fragment.xml
+//initiliase button and create alert dialog box
