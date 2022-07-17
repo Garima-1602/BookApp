@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
 import model.Book
@@ -22,6 +24,7 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>
         val txtBookRating:TextView=view.findViewById(R.id.txtBookRating)
         val txtBookPrice:TextView=view.findViewById(R.id.txtBookPrice)
         val imgBook: ImageView =view.findViewById(R.id.imgBook)
+        val l1content:LinearLayout=view.findViewById(R.id.l1content)
 
 
 
@@ -48,6 +51,9 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>
     holder.txtBookPrice.text=book.bookPrice
     holder.txtBookRating.text=book.bookRating
     holder.imgBook.setImageResource(book.bookImage)
+    holder.l1content.setOnClickListener(){
+        Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_SHORT).show()
+    }
 
     }
 
