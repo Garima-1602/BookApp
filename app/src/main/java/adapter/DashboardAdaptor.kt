@@ -27,9 +27,6 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>
         val l1content:LinearLayout=view.findViewById(R.id.l1content)
 
 
-
-
-
     }
 //these methods are responsible for connceting the adaptor to the list
     override fun onCreateViewHolder(//responsible for creating 10 viewHolders
