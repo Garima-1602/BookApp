@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +62,10 @@ class DashboardFragment : Fragment() {
         recyclerAdapter=DashboardRecyclerAdapter(activity as Context,bookList)
         Recyclerview.adapter=recyclerAdapter
         Recyclerview.layoutManager=layoutManager
+            Recyclerview.addItemDecoration(DividerItemDecoration(
+                Recyclerview.context,
+                (layoutManager as LinearLayoutManager).orientation
+            ))
 
         return view //this voew is parent view of fragment
     }
