@@ -2,6 +2,7 @@ package fragment
 
 import adapter.DashboardRecyclerAdapter
 import android.app.AlertDialog
+import android.app.DownloadManager
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,9 +14,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.Volley
 import com.example.bookapp.R
 import model.Book
 import util.ConnectionManager
+import com.android.volley.toolbox.JsonObjectRequest as JsonObjectRequest1
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,7 +113,23 @@ class DashboardFragment : Fragment() {
                 Recyclerview.context,
                 (layoutManager as LinearLayoutManager).orientation
             ))
+          val queue= Volley.newRequestQueue(activity as Context) //to manage queue of request
+        val url="http://13.235.250.119/v1/book/fetch_books/"
+        val jsonObjectRequest=object: JsonObjectRequest1(Request.Method.GET,url,null, Response.Listener{
+           println("Response is $it ")
+        },Response.ErrorListener {
+            println("Error is $it ")
+        })
+        {
+            //headers tell us the type of content sent to and received from API
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers =HashMap<String, String>()
+                headers["content->type"]="application/json"
+                headers["token"]="2334db3a8fd667"
 
+                return headers
+            }
+        }
         return view //this voew is parent view of fragment
     }
 
