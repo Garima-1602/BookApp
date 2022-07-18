@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<!--code for sending http request-->
+<network-security-config>
+    <domain-config  cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">13.235.250.119</domain>>
 
-</PreferenceScreen>
+    </domain-config>
+</network-security-config>
+
