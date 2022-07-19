@@ -50,6 +50,7 @@ class DashboardFragment : Fragment() {
        lateinit var btnCheckInternet: Button
 
     lateinit var recyclerAdapter:DashboardRecyclerAdapter
+    val bookInfoList = arrayListOf<Book>()
     /*
     val bookInfoList= arrayListOf<Book>(
         Book("P.S. I love You", "Cecelia Ahern", "Rs. 299", "4.5", R.drawable.ps_ily),
@@ -97,13 +98,7 @@ class DashboardFragment : Fragment() {
         }
         Recyclerview=view.findViewById(R.id.Recyclerview)
         layoutManager=LinearLayoutManager(activity)
-        recyclerAdapter=DashboardRecyclerAdapter(activity as Context,bookInfoList)
-        Recyclerview.adapter=recyclerAdapter
-        Recyclerview.layoutManager=layoutManager
-            Recyclerview.addItemDecoration(DividerItemDecoration(
-                Recyclerview.context,
-                (layoutManager as LinearLayoutManager).orientation
-            ))
+
           val queue= Volley.newRequestQueue(activity as Context) //to manage queue of request
         val url="http://13.235.250.119/v1/book/fetch_books/"
         val jsonObjectRequest=object: JsonObjectRequest1(Request.Method.GET,url,null, Response.Listener{
@@ -123,13 +118,18 @@ class DashboardFragment : Fragment() {
 
                     )
                     bookInfoList.add(bookObject)
-
+                    recyclerAdapter=DashboardRecyclerAdapter(activity as Context,bookInfoList)
+                    Recyclerview.adapter=recyclerAdapter
+                    Recyclerview.layoutManager=layoutManager
+                    Recyclerview.addItemDecoration(DividerItemDecoration(
+                        Recyclerview.context,
+                        (layoutManager as LinearLayoutManager).orientation
+                    ))
                 }
-
 
             }else
             {
-                Toast.makeText()
+                Toast.makeText(activity as Context,"Error occured",Toast.LENGTH_SHORT).show()
             }
         },Response.ErrorListener {
             println("Error is $it ")
