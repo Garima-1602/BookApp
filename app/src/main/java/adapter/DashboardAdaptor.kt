@@ -49,7 +49,8 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>
     holder.txtBookPrice.text=book.bookPrice
     holder.txtBookRating.text=book.bookRating
     //holder.imgBook.setImageResource(book.bookImage)
-    Picasso.get().load(book.bookImage).into(holder.imgBook);
+    //when image not properly fetch through picassio then default image will be taken
+    Picasso.get().load(book.bookImage).error(R.drawable.default_book_cover).into(holder.imgBook);
     holder.l1content.setOnClickListener(){
         Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_SHORT).show()
     }
