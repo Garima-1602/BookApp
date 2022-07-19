@@ -116,12 +116,12 @@ class DashboardFragment : Fragment() {
                                 DashboardRecyclerAdapter(activity as Context, bookInfoList)
                             Recyclerview.adapter = recyclerAdapter
                             Recyclerview.layoutManager = layoutManager
-                            Recyclerview.addItemDecoration(
+                            /*Recyclerview.addItemDecoration(
                                 DividerItemDecoration(
                                     Recyclerview.context,
                                     (layoutManager as LinearLayoutManager).orientation
                                 )
-                            )
+                            )*/
                         }
 
                     } else {
