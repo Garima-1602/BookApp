@@ -20,15 +20,7 @@
         android:padding="10dp"
         android:layout_below="@+id/dashboardFragment"
         android:layout_margin="5dp"/>
-  <Button
-      android:id="@+id/btnCheckInternet"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:text="Check Internet"
-      android:textStyle="bold"
-      android:backgroundTint="#00695f"
-      android:textSize="18sp"/>
+
     <RelativeLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"

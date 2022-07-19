@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
     }
        lateinit var Recyclerview:RecyclerView
        lateinit var layoutManager: RecyclerView.LayoutManager
-       lateinit var btnCheckInternet: Button
+
        lateinit var progressLayout:RelativeLayout
        lateinit var progressBar:ProgressBar
 
@@ -81,33 +81,11 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_dashboard, container, false)
-        btnCheckInternet=view.findViewById(R.id.btnCheckInternet)
+
         progressLayout=view.findViewById(R.id.progressLayout)
         progressBar=view.findViewById(R.id.progressBar)
         progressLayout.visibility=View.VISIBLE
-        btnCheckInternet.setOnClickListener(){
-            if(ConnectionManager().checkConnectivity(activity as Context)){
-                //internet is available
-                val dialog=AlertDialog.Builder(activity as Context)
-                dialog.setTitle("success")
-                dialog.setMessage("Internet Connection Found")
-                dialog.setPositiveButton("OK"){text,listener->}
-                dialog.setNegativeButton("Cancel"){text,listener->}
-                dialog.create()
-                dialog.show()
-            }
-            else
-            {
-                //not available
-                val dialog=AlertDialog.Builder(activity as Context)
-                dialog.setTitle("Error")
-                dialog.setMessage("Internet Connection not Found")
-                dialog.setPositiveButton("OK"){text,listener->}
-                dialog.setNegativeButton("Cancel"){text,listener->}
-                dialog.create()
-                dialog.show()
-            }
-        }
+
         Recyclerview=view.findViewById(R.id.Recyclerview)
         layoutManager=LinearLayoutManager(activity)
 
