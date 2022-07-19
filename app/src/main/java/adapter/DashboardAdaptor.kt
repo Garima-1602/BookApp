@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
+import com.squareup.picasso.Picasso
 import model.Book
 
 //construction two primary constructors
@@ -47,7 +48,8 @@ class DashboardRecyclerAdapter(val context: Context,val itemList:ArrayList<Book>
     holder.txtBookAuthor.text=book.bookAuthor
     holder.txtBookPrice.text=book.bookPrice
     holder.txtBookRating.text=book.bookRating
-    holder.imgBook.setImageResource(book.bookImage)
+    //holder.imgBook.setImageResource(book.bookImage)
+    Picasso.get().load(book.bookImage).into(holder.imgBook);
     holder.l1content.setOnClickListener(){
         Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_SHORT).show()
     }
