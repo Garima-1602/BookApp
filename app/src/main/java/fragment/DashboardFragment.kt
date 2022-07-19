@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,19 +48,9 @@ class DashboardFragment : Fragment() {
        lateinit var Recyclerview:RecyclerView
        lateinit var layoutManager: RecyclerView.LayoutManager
        lateinit var btnCheckInternet: Button
-       val bookList= arrayListOf<String>(
-           "P.S. I love You",
-           "The Great Gatsby",
-           "Anna Karenina",
-           "Madame Bovary",
-           "War and Peace",
-           "Lolita",
-           "Middlemarch",
-           "The adventure of Huckleberry Finn",
-           "Moby-Dick",
-           "The lord of the Rings"
-       )
+
     lateinit var recyclerAdapter:DashboardRecyclerAdapter
+    /*
     val bookInfoList= arrayListOf<Book>(
         Book("P.S. I love You", "Cecelia Ahern", "Rs. 299", "4.5", R.drawable.ps_ily),
         Book("The Great Gatsby", "F. Scott Fitzgerald", "Rs. 399", "4.1", R.drawable.great_gatsby),
@@ -72,7 +63,7 @@ class DashboardFragment : Fragment() {
         Book("Moby-Dick", "Herman Melville", "Rs. 499", "4.5", R.drawable.moby_dick),
         Book("The Lord of the Rings", "J.R.R Tolkien", "Rs. 749", "5.0", R.drawable.lord_of_rings)
 
-    )
+    ) */
     override fun onCreateView(//here we use layoutinflater instead of setcontentview
         //layoutinflater converts the complete layout into view and then we return in the method
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,7 +107,30 @@ class DashboardFragment : Fragment() {
           val queue= Volley.newRequestQueue(activity as Context) //to manage queue of request
         val url="http://13.235.250.119/v1/book/fetch_books/"
         val jsonObjectRequest=object: JsonObjectRequest1(Request.Method.GET,url,null, Response.Listener{
-           println("Response is $it ")
+           val success=it.getBoolean("success")
+            if(success)
+            {
+                val data=it.getJSONArray("data")
+                for(i in 0 until data.length()){
+                    val bookJsonObject=data.getJSONObject(i) //extract object
+                    val bookObject=Book(
+                        bookJsonObject.getString("book_id"),
+                        bookJsonObject.getString("name"),
+                        bookJsonObject.getString("author"),
+                        bookJsonObject.getString("rating"),
+                        bookJsonObject.getString("price"),
+                        bookJsonObject.getString("image")
+
+                    )
+                    bookInfoList.add(bookObject)
+
+                }
+
+
+            }else
+            {
+                Toast.makeText()
+            }
         },Response.ErrorListener {
             println("Error is $it ")
         })
@@ -130,6 +144,7 @@ class DashboardFragment : Fragment() {
                 return headers
             }
         }
+        queue.add(jsonObjectRequest)
         return view //this voew is parent view of fragment
     }
 
