@@ -13,4 +13,5 @@
     <string name="favourite_fragment">Favourite fragment</string>
     <string name="Profile_fragment">profile_fragment</string>
     <string name="About_Fragment">about_fragment</string>
+    <string name="book_description">Book_Description</string>
 </resources>
