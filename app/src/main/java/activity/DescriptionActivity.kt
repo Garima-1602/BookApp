@@ -1,10 +1,16 @@
 package activity
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -97,6 +103,22 @@ class DescriptionActivity : AppCompatActivity() {
                 }
             }
             queue.add(jsonRequest)
+        }
+        else
+        {
+            val dialog= AlertDialog.Builder(this@DescriptionActivity)
+            dialog.setTitle("Error")
+            dialog.setMessage("Internet Connection not Found")
+            dialog.setPositiveButton("Open Settings"){text,listener->
+                val settingsIntent= Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(settingsIntent)
+                finish()
+            }
+            dialog.setNegativeButton("Exit"){text,listener->
+                ActivityCompat.finishAffinity(this@DescriptionActivity)//closes all running instances of app
+            }
+            dialog.create()
+            dialog.show()
         }
 
     }
