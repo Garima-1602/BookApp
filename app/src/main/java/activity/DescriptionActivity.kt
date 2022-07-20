@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley
 import com.example.bookapp.R
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
+import util.ConnectionManager
 import java.util.HashMap
 
 class DescriptionActivity : AppCompatActivity() {
@@ -61,38 +62,42 @@ class DescriptionActivity : AppCompatActivity() {
         val url="http://13.235.250.119/v1/book/get_book/"
         val jsonParams=JSONObject()
         jsonParams.put("book_id",bookId)
-        val jsonRequest=object:JsonObjectRequest(Request.Method.POST,url,jsonParams,Response.Listener {
-                 try{
-                     val success=it.getBoolean("success")
-                     if(success)
-                     {
-                              val bookJsonObject=it.getJSONObject("book_data")
-                         progresslayout.visibility=View.GONE
-                         Picasso.get().load(bookJsonObject.getString("image"))
-                         txtBookName.text=bookJsonObject.getString("name")
-                         txtBookAuthor.text=bookJsonObject.getString("author")
-                         txtBookPrice.text=bookJsonObject.getString("price")
-                         txtBookRating.text=bookJsonObject.getString("rating")
-                         txtDescription.text=bookJsonObject.getString("description")
-                     }
-                     else
-                     {
-                         Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
-                     }
+        if(ConnectionManager().checkConnectivity(this@DescriptionActivity)){
+            val jsonRequest=object:JsonObjectRequest(Request.Method.POST,url,jsonParams,Response.Listener {
+                try{
+                    val success=it.getBoolean("success")
+                    if(success)
+                    {
+                        val bookJsonObject=it.getJSONObject("book_data")
+                        progresslayout.visibility=View.GONE
+                        Picasso.get().load(bookJsonObject.getString("image")).error(R.drawable.default_book_cover).into(imagebook)
+                        txtBookName.text=bookJsonObject.getString("name")
+                        txtBookAuthor.text=bookJsonObject.getString("author")
+                        txtBookPrice.text=bookJsonObject.getString("price")
+                        txtBookRating.text=bookJsonObject.getString("rating")
+                        txtDescription.text=bookJsonObject.getString("description")
+                    }
+                    else
+                    {
+                        Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
+                    }
 
-                 }catch(e:Exception){
-                     Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
-                 }
-        },Response.ErrorListener {
-            Toast.makeText(this@DescriptionActivity,"Volley error occured $it",Toast.LENGTH_SHORT).show()
-        })
-        {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers=HashMap<String,String>()
-                headers["Content-type"]="application/json"
-                headers["token"]="2334db3a8fd667"
-                return headers
+                }catch(e:Exception){
+                    Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
+                }
+            },Response.ErrorListener {
+                Toast.makeText(this@DescriptionActivity,"Volley error occured $it",Toast.LENGTH_SHORT).show()
+            })
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers=HashMap<String,String>()
+                    headers["Content-type"]="application/json"
+                    headers["token"]="2334db3a8fd667"
+                    return headers
+                }
             }
+            queue.add(jsonRequest)
         }
+
     }
 }
