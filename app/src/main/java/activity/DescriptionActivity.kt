@@ -21,7 +21,7 @@ class DescriptionActivity : AppCompatActivity() {
     lateinit var txtBookRating:TextView
     lateinit var txtDescription:TextView
     lateinit var progresslayout:RelativeLayout
-    lateinit var progressBar: ProgressBar
+    lateinit var progbar: ProgressBar
     lateinit var btnfav: Button
     var bookId:String?="100"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +33,10 @@ class DescriptionActivity : AppCompatActivity() {
         txtBookPrice=findViewById(R.id.txtBookPrice)
         txtBookRating=findViewById(R.id.txtBookRating)
         txtDescription=findViewById(R.id.txtDescription)
-        progresslayout=findViewById(R.id.progressLayout)
+        progresslayout=findViewById(R.id.progresslayout)
         progresslayout.visibility= View.VISIBLE
-        progressBar=findViewById(R.id.progressBar)
-        progressBar.visibility=View.VISIBLE
+        progbar=findViewById(R.id.progbar)
+        progbar.visibility=View.VISIBLE
 
         if(intent!=null)
         {
