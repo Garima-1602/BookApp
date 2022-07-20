@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -23,6 +24,7 @@ class DescriptionActivity : AppCompatActivity() {
     lateinit var progresslayout:RelativeLayout
     lateinit var progbar: ProgressBar
     lateinit var btnfav: Button
+    lateinit var toolbar:Toolbar
     var bookId:String?="100"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,9 @@ class DescriptionActivity : AppCompatActivity() {
         progresslayout.visibility= View.VISIBLE
         progbar=findViewById(R.id.progbar)
         progbar.visibility=View.VISIBLE
+        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title="Book Details"
 
         if(intent!=null)
         {
