@@ -42,11 +42,11 @@ class FavouriteFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    lateinit var recylerfavourite: RecyclerView
+    lateinit var recyclerfavourite: RecyclerView
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var progressLayout: RelativeLayout
     lateinit var progressBar: ProgressBar
-    lateinit var recylerAdapter: FavouriteRecyclerAdapter
+    lateinit var recyclerAdapter: FavouriteRecyclerAdapter
     var dbBookList=listOf<BookEntity>() //to store data that we get from database in this variable
 
 
@@ -59,15 +59,15 @@ class FavouriteFragment : Fragment() {
         progressLayout=view.findViewById(R.id.progressLayout)
         progressBar=view.findViewById(R.id.progressBar)
         progressLayout.visibility=View.VISIBLE
-        recylerfavourite=view.findViewById(R.id.recyclerfavourite)
+        recyclerfavourite=view.findViewById(R.id.recyclerfavourite)
         layoutManager= GridLayoutManager(activity as Context,2)
         dbBookList=RetrieveFavourites(activity as Context).execute().get()
         if(activity!=null)
         {
             progressLayout.visibility=View.GONE
-            recylerAdapter= FavouriteRecyclerAdapter(activity as Context,dbBookList)
-            recylerfavourite.adapter=recylerAdapter
-            recylerfavourite.layoutManager=layoutManager
+            recyclerAdapter= FavouriteRecyclerAdapter(activity as Context,dbBookList)
+            recyclerfavourite.adapter=recyclerAdapter
+            recyclerfavourite.layoutManager=layoutManager
 
         }
         return view
