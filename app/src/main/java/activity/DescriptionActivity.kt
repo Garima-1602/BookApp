@@ -22,6 +22,7 @@ import com.example.bookapp.R
 import com.squareup.picasso.Picasso
 import database.BookDatabase
 import database.BookEntity
+import org.json.JSONException
 import org.json.JSONObject
 import util.ConnectionManager
 import java.util.HashMap
@@ -35,7 +36,7 @@ class DescriptionActivity : AppCompatActivity() {
     lateinit var txtDescription:TextView
     lateinit var progresslayout:RelativeLayout
     lateinit var progbar: ProgressBar
-    lateinit var btnfav: Button
+    lateinit var btnfav:Button
     lateinit var toolbar:Toolbar
     var bookId:String?="100"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class DescriptionActivity : AppCompatActivity() {
         progbar=findViewById(R.id.progbar)
         progbar.visibility=View.VISIBLE
         toolbar=findViewById(R.id.toolbar)
+        btnfav=findViewById(R.id.btnfav)
         setSupportActionBar(toolbar)
         supportActionBar?.title="Book Details"
 
@@ -74,7 +76,7 @@ class DescriptionActivity : AppCompatActivity() {
         val jsonParams=JSONObject()
         jsonParams.put("book_id",bookId)
         if(ConnectionManager().checkConnectivity(this@DescriptionActivity)){
-            val jsonRequest=object:JsonObjectRequest(Request.Method.POST,url,jsonParams,Response.Listener {
+            val jsonRequest=object:JsonObjectRequest(Method.POST,url,jsonParams,Response.Listener {
                 try{
                     val success=it.getBoolean("success")
                     if(success) {
@@ -102,7 +104,7 @@ class DescriptionActivity : AppCompatActivity() {
                         if (isFav) {
                             btnfav.text = "Remove From Favourites"
                             val favColor =
-                                ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark)
+                                ContextCompat.getColor(applicationContext, R.color.colorAccent)
                             btnfav.setBackgroundColor(favColor)
                         } else
                         {
@@ -128,7 +130,7 @@ class DescriptionActivity : AppCompatActivity() {
                                     ).show()
                                     btnfav.text="Remove from favourites"
                                     val favColor =
-                                        ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark)
+                                        ContextCompat.getColor(applicationContext, R.color.colorAccent)
                                     btnfav.setBackgroundColor(favColor)
                                 }
                                 else
@@ -176,7 +178,7 @@ class DescriptionActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }catch(e:Exception){
+                }catch(e:JSONException){
                     Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
                 }
             },Response.ErrorListener {
