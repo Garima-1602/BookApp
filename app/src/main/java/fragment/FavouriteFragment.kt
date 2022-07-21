@@ -1,11 +1,24 @@
 package fragment
 
+import adapter.FavouriteRecyclerAdapter
+import android.content.Context
+import android.opengl.Visibility
+import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.bookapp.R
+import database.BookDatabase
+import database.BookEntity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +42,13 @@ class FavouriteFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    lateinit var recylerfavourite: RecyclerView
+    lateinit var layoutManager: RecyclerView.LayoutManager
+    lateinit var progressLayout: RelativeLayout
+    lateinit var progressBar: ProgressBar
+    lateinit var recylerAdapter: FavouriteRecyclerAdapter
+    var dbBookList=listOf<BookEntity>() //to store data that we get from database in this variable
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +56,29 @@ class FavouriteFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =inflater.inflate(R.layout.fragment_favourite, container, false)
+        progressLayout=view.findViewById(R.id.progressLayout)
+        progressBar=view.findViewById(R.id.progressBar)
+        progressLayout.visibility=View.VISIBLE
+        recylerfavourite=view.findViewById(R.id.recyclerfavourite)
+        layoutManager= GridLayoutManager(activity as Context,2)
+        dbBookList=RetrieveFavourites(activity as Context).execute().get()
+        if(activity!=null)
+        {
+            progressLayout.visibility=View.GONE
+            recylerAdapter= FavouriteRecyclerAdapter(activity as Context,dbBookList)
+            recylerfavourite.adapter=recylerAdapter
+            recylerfavourite.layoutManager=layoutManager
+
+        }
         return view
+    }
+    class RetrieveFavourites(val context:Context):AsyncTask<Void,Void,List<BookEntity>>(){
+        override fun doInBackground(vararg p0: Void?): List<BookEntity> {
+            //to get list of books from database
+            val db= Room.databaseBuilder(context,BookDatabase::class.java,"books-db").build()
+            return db.bookDao().getAllBooks()
+        }
+
     }
 
     companion object {

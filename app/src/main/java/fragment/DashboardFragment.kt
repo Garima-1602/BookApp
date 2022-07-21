@@ -172,7 +172,7 @@ class DashboardFragment : Fragment() {
 
         }
 
-        return view //this voew is parent view of fragment
+        return view //this view is parent view of fragment
     }
 
     companion object {
