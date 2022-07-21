@@ -9,10 +9,10 @@ import androidx.room.Query
 interface BookDao {
     //to store books in favourite fragment
     @Insert
-    fun insert(bookEntity: BookEntity)
+    fun insertBook(bookEntity: BookEntity)
 
     @Delete
-    fun delete(bookEntity: BookEntity)
+    fun deleteBook(bookEntity: BookEntity)
 
     @Query("Select * FROM books")
     fun getAllBooks():List<BookEntity>

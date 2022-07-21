@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.room.Room
 import com.android.volley.Request
 import com.android.volley.Response
@@ -76,22 +77,105 @@ class DescriptionActivity : AppCompatActivity() {
             val jsonRequest=object:JsonObjectRequest(Request.Method.POST,url,jsonParams,Response.Listener {
                 try{
                     val success=it.getBoolean("success")
-                    if(success)
-                    {
-                        val bookJsonObject=it.getJSONObject("book_data")
-                        progresslayout.visibility=View.GONE
-                        Picasso.get().load(bookJsonObject.getString("image")).error(R.drawable.default_book_cover).into(imagebook)
-                        txtBookName.text=bookJsonObject.getString("name")
-                        txtBookAuthor.text=bookJsonObject.getString("author")
-                        txtBookPrice.text=bookJsonObject.getString("price")
-                        txtBookRating.text=bookJsonObject.getString("rating")
-                        txtDescription.text=bookJsonObject.getString("description")
-                    }
-                    else
-                    {
-                        Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
-                    }
+                    if(success) {
+                        val bookJsonObject = it.getJSONObject("book_data")
+                        progresslayout.visibility = View.GONE
+                        val bookImageUrl = bookJsonObject.getString("image")
+                        Picasso.get().load(bookJsonObject.getString("image"))
+                            .error(R.drawable.default_book_cover).into(imagebook)
+                        txtBookName.text = bookJsonObject.getString("name")
+                        txtBookAuthor.text = bookJsonObject.getString("author")
+                        txtBookPrice.text = bookJsonObject.getString("price")
+                        txtBookRating.text = bookJsonObject.getString("rating")
+                        txtDescription.text = bookJsonObject.getString("description")
+                        val bookEntity = BookEntity(
+                            bookId?.toInt() as Int,
+                            txtBookName.text.toString(),
+                            txtBookAuthor.text.toString(),
+                            txtBookPrice.text.toString(),
+                            txtBookRating.text.toString(),
+                            txtDescription.text.toString(),
+                            bookImageUrl
+                        )
+                        val checkFav = DBAsyncTask(applicationContext, bookEntity, 1).execute()
+                        val isFav = checkFav.get() //to check book is added to fav
+                        if (isFav) {
+                            btnfav.text = "Remove From Favourites"
+                            val favColor =
+                                ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark)
+                            btnfav.setBackgroundColor(favColor)
+                        } else
+                        {
+                            btnfav.text = "Add to Favourites"
+                            val nofavColor =
+                                ContextCompat.getColor(applicationContext, R.color.colorPrimary)
+                            btnfav.setBackgroundColor(nofavColor)
+                        }
+                        btnfav.setOnClickListener(){
+                            //check if book is present in db or not
+                            if(!DBAsyncTask(applicationContext, bookEntity, 1).execute().get())
+                            //this block will exceute when the book is not favourite
+                            {
+                                  //to save into favourite we will execute mode 2
+                                val async=DBAsyncTask(applicationContext, bookEntity, 2).execute()
+                                val result=async.get()
+                                if(result)
+                                {
+                                    Toast.makeText(
+                                        this@DescriptionActivity,
+                                        "Book added to favourites",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    btnfav.text="Remove from favourites"
+                                    val favColor =
+                                        ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark)
+                                    btnfav.setBackgroundColor(favColor)
+                                }
+                                else
+                                {
+                                    Toast.makeText(
+                                        this@DescriptionActivity,
+                                        "Some error has occured",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
 
+                            }
+                            else
+                            {
+                                val async=DBAsyncTask(applicationContext, bookEntity, 3).execute()
+                                val result=async.get()
+                                if(result)
+                                {
+                                    Toast.makeText(
+                                        this@DescriptionActivity,
+                                        "Book removed from favourites",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    btnfav.text="Add to favourites"
+                                    val nofavColor =
+                                        ContextCompat.getColor(applicationContext, R.color.colorPrimary)
+                                    btnfav.setBackgroundColor(nofavColor)
+                                }
+                                else
+                                {
+                                    Toast.makeText(
+                                        this@DescriptionActivity,
+                                        "Some error has occured",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                }
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(
+                            this@DescriptionActivity,
+                            "Some unexpected error has occured",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }catch(e:Exception){
                     Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
                 }
@@ -143,13 +227,17 @@ class DescriptionActivity : AppCompatActivity() {
                     return book!=null
                 }
                 2->{
-                    db.bookDao().insert(bookEntity)
+                    //save the book into db as fav
+                    db.bookDao().insertBook(bookEntity)
                     db.close()
                     return true
 
                 }
                 3->{
-
+                          //remove the fav book
+                    db.bookDao().deleteBook(bookEntity)
+                    db.close()
+                    return true
                 }
             }
            return false
