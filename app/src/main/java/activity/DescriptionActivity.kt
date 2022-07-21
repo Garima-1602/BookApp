@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -11,12 +12,15 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.room.Room
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.bookapp.R
 import com.squareup.picasso.Picasso
+import database.BookDatabase
+import database.BookEntity
 import org.json.JSONObject
 import util.ConnectionManager
 import java.util.HashMap
@@ -119,6 +123,36 @@ class DescriptionActivity : AppCompatActivity() {
             }
             dialog.create()
             dialog.show()
+        }
+
+    }
+    //to perform some data operations this class need context
+    class DBAsyncTask(val context: Context,val bookEntity: BookEntity,val mode:Int): AsyncTask<Void, Void, Boolean>(){
+        /*
+        1>check DB if the book is fav or not
+        2>Save the book into DB as fav
+        3>Remove the fav book
+         */
+        val db= Room.databaseBuilder(context,BookDatabase::class.java,"book-db").build()
+        override fun doInBackground(vararg p0: Void?): Boolean {
+            when(mode){
+                1->{
+                            //check db if the book is fav or not
+                    val book:BookEntity?=db.bookDao().getBookById(bookEntity.book_id.toString())
+                    db.close()
+                    return book!=null
+                }
+                2->{
+                    db.bookDao().insert(bookEntity)
+                    db.close()
+                    return true
+
+                }
+                3->{
+
+                }
+            }
+           return false
         }
 
     }
