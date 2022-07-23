@@ -109,9 +109,9 @@ class DescriptionActivity : AppCompatActivity() {
                         } else
                         {
                             btnfav.text = "Add to Favourites"
-                            val nofavColor =
+                            val noFavColor =
                                 ContextCompat.getColor(applicationContext, R.color.colorPrimary)
-                            btnfav.setBackgroundColor(nofavColor)
+                            btnfav.setBackgroundColor(noFavColor)
                         }
                         btnfav.setOnClickListener(){
                             //check if book is present in db or not
@@ -155,9 +155,9 @@ class DescriptionActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     btnfav.text="Add to favourites"
-                                    val nofavColor =
+                                    val noFavColor =
                                         ContextCompat.getColor(applicationContext, R.color.colorPrimary)
-                                    btnfav.setBackgroundColor(nofavColor)
+                                    btnfav.setBackgroundColor(noFavColor)
                                 }
                                 else
                                 {
@@ -178,11 +178,15 @@ class DescriptionActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }catch(e:JSONException){
+                }catch(e:Exception){
                     Toast.makeText(this@DescriptionActivity,"Some unexpected error has occured",Toast.LENGTH_SHORT).show()
                 }
             },Response.ErrorListener {
-                Toast.makeText(this@DescriptionActivity,"Volley error occured $it",Toast.LENGTH_SHORT).show()
+
+
+                    Toast.makeText(this@DescriptionActivity,"Volley error  $it",Toast.LENGTH_SHORT).show()
+
+
             })
             {
                 override fun getHeaders(): MutableMap<String, String> {

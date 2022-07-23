@@ -14,12 +14,13 @@ import database.BookEntity
 
 class FavouriteRecyclerAdapter(val context: Context,val bookList:List<BookEntity>):RecyclerView.Adapter<FavouriteRecyclerAdapter.FavouriteViewHolder> (){
     class FavouriteViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val llFavContent:LinearLayout=view.findViewById(R.id.llFavContent)
-        val imgFavBookImage:ImageView=view.findViewById(R.id.imgFavBookImage)
+       // val llFavContent:LinearLayout=view.findViewById(R.id.llFavContent)
+        val imagebook:ImageView=view.findViewById(R.id.imgFavBookImage)
         val txtBookName:TextView=view.findViewById(R.id.txtFavBookTitle)
         val txtBookAuthor:TextView=view.findViewById(R.id.txtFavBookAuthor)
         val txtBookPrice:TextView=view.findViewById(R.id.txtFavBookPrice)
         val txtBookRating:TextView=view.findViewById(R.id.txtFavBookRating)
+        val llContent: LinearLayout = view.findViewById(R.id.llFavContent)
 
 
     }
@@ -35,7 +36,7 @@ class FavouriteRecyclerAdapter(val context: Context,val bookList:List<BookEntity
         holder.txtBookAuthor.text=book.bookAuthor
         holder.txtBookPrice.text=book.bookPrice
         holder.txtBookRating.text=book.bookRating
-        Picasso.get().load(book.bookImage).error(R.drawable.default_book_cover).into(holder.imgFavBookImage)
+        Picasso.get().load(book.bookImage).error(R.drawable.default_book_cover).into(holder.imagebook)
     }
 
     override fun getItemCount(): Int {

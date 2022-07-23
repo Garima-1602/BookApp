@@ -42,12 +42,12 @@ class FavouriteFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    lateinit var recyclerfavourite: RecyclerView
+    lateinit var recyclerFavourite: RecyclerView
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var progressLayout: RelativeLayout
     lateinit var progressBar: ProgressBar
     lateinit var recyclerAdapter: FavouriteRecyclerAdapter
-    var dbBookList=listOf<BookEntity>() //to store data that we get from database in this variable
+    var dbBookList= listOf<BookEntity>() //to store data that we get from database in this variable
 
 
     override fun onCreateView(
@@ -58,24 +58,25 @@ class FavouriteFragment : Fragment() {
         val view =inflater.inflate(R.layout.fragment_favourite, container, false)
         progressLayout=view.findViewById(R.id.progressLayout)
         progressBar=view.findViewById(R.id.progressBar)
-        progressLayout.visibility=View.VISIBLE
-        recyclerfavourite=view.findViewById(R.id.recyclerfavourite)
+        //progressLayout.visibility=View.VISIBLE
+        recyclerFavourite=view.findViewById(R.id.recyclerFavourite)
         layoutManager= GridLayoutManager(activity as Context,2)
         dbBookList=RetrieveFavourites(activity as Context).execute().get()
         if(activity!=null)
         {
             progressLayout.visibility=View.GONE
             recyclerAdapter= FavouriteRecyclerAdapter(activity as Context,dbBookList)
-            recyclerfavourite.adapter=recyclerAdapter
-            recyclerfavourite.layoutManager=layoutManager
+            recyclerFavourite.adapter=recyclerAdapter
+            recyclerFavourite.layoutManager=layoutManager
 
         }
         return view
     }
-    class RetrieveFavourites(val context:Context):AsyncTask<Void,Void,List<BookEntity>>(){
+    class RetrieveFavourites(val context: Context) : AsyncTask<Void, Void, List<BookEntity>>() {
+
         override fun doInBackground(vararg p0: Void?): List<BookEntity> {
-            //to get list of books from database
-            val db= Room.databaseBuilder(context,BookDatabase::class.java,"books-db").build()
+            val db = Room.databaseBuilder(context, BookDatabase::class.java, "books-db").build()
+
             return db.bookDao().getAllBooks()
         }
 
